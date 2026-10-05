@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en" class="system">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RBZedu.com — IELTS & CEFR Learning Platform</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Configure Tailwind theme extension with Egyptian Blue & Iceberg tokens -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        egyptian: {
+                            50: '#f0f4ff',
+                            100: '#e1e9fe',
+                            300: '#7fa3f8',
+                            500: '#1034A6',
+                            600: '#0d2b8b',
+                            700: '#0a216f',
+                            800: '#07164b',
+                            900: '#050f33',
+                            950: '#03081e',
+                        },
+                        iceberg: {
+                            50: '#f0f8ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#71A6D2',
+                            400: '#38bdf8',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                        },
+                        darkbg: '#070d19',
+                        lightbg: '#edf5fd'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'float-slow': 'float 9s ease-in-out infinite',
+                        'float-reverse': 'floatReverse 11s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 5s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translate(0px, 0px) rotate(0deg)' },
+                            '50%': { transform: 'translate(20px, -25px) rotate(3deg)' }
+                        },
+                        floatReverse: {
+                            '0%, 100%': { transform: 'translate(0px, 0px) rotate(0deg)' },
+                            '50%': { transform: 'translate(-25px, 20px) rotate(-3deg)' }
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: 0.5 },
+                            '50%': { opacity: 0.85 }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* LIGHT MODE GLASS (High contrast charcoal text on crisp ice background) */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(186, 230, 253, 0.6);
+            box-shadow: 0 20px 45px rgba(2, 132, 199, 0.08), 0 4px 12px rgba(15, 23, 42, 0.03);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(224, 242, 254, 0.9);
+            box-shadow: 0 8px 24px rgba(16, 52, 166, 0.05);
+        }
+
+        .glass-input {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1.5px solid rgba(113, 166, 210, 0.4);
+            color: #0f172a;
+            transition: all 0.2s ease;
+        }
+
+        .glass-input::placeholder {
+            color: #64748b;
+        }
+
+        .glass-input:focus {
+            outline: none;
+            border-color: #1034A6;
+            box-shadow: 0 0 0 4px rgba(16, 52, 166, 0.15);
+            background: #ffffff;
+        }
+
+        /* DARK MODE GLASS (Crisp light text on deep Egyptian Navy background) */
+        html.dark .glass-panel {
+            background: rgba(11, 19, 43, 0.78);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        html.dark .glass-card {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        html.dark .glass-input {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1.5px solid rgba(255, 255, 255, 0.14);
+            color: #f8fafc;
+        }
+
+        html.dark .glass-input::placeholder {
+            color: #94a3b8;
+        }
+
+        html.dark .glass-input:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.2);
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        /* Buttons & Interactions */
+        .btn-glow {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px -4px rgba(16, 52, 166, 0.4);
+        }
+
+        html.dark .btn-glow:hover {
+            box-shadow: 0 12px 28px -4px rgba(56, 189, 248, 0.4);
+        }
+
+        .theme-pill {
+            transition: all 0.2s ease;
+        }
+
+        .theme-pill.active {
+            background: #1034A6;
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(16, 52, 166, 0.35);
+        }
+
+        html.dark .theme-pill.active {
+            background: #38bdf8;
+            color: #070d19 !important;
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);
+        }
+
+        /* Password strength meter bar */
+        .strength-bar {
+            height: 4px;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(113, 166, 210, 0.4);
+            border-radius: 9999px;
+        }
+        html.dark ::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-lightbg text-slate-900 dark:bg-darkbg dark:text-slate-100 min-h-screen flex flex-col relative overflow-x-hidden selection:bg-iceberg-300/40 dark:selection:bg-egyptian-500/50">
+
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <!-- Egyptian Blue Top Left Orb -->
+        <div class="absolute -top-24 -left-24 w-96 md:w-[34rem] h-96 md:h-[34rem] bg-iceberg-200/60 dark:bg-egyptian-600/35 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl animate-float-slow"></div>
+        <!-- Iceberg Top Right Orb -->
+        <div class="absolute top-1/4 -right-20 w-80 md:w-[30rem] h-80 md:h-[30rem] bg-sky-200/70 dark:bg-blue-900/40 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl animate-float-reverse"></div>
+        <!-- Center Bottom Glow Orb -->
+        <div class="absolute -bottom-32 left-1/3 w-96 md:w-[38rem] h-96 md:h-[38rem] bg-indigo-200/50 dark:bg-egyptian-900/50 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl animate-pulse-glow"></div>
+    </div>
+
+    <header class="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 md:pt-6">
+        <nav class="glass-panel rounded-2xl md:rounded-3xl px-4 sm:px-6 py-3.5 flex items-center justify-between transition-all">
+            
+            <!-- Custom SVG Monogram Logo (RBZedu) -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="relative w-11 h-11 rounded-2xl bg-gradient-to-tr from-egyptian-600 via-blue-600 to-iceberg-300 dark:from-egyptian-500 dark:to-sky-400 p-0.5 shadow-lg shadow-egyptian-500/20 group-hover:scale-105 transition-transform">
+                    <div class="w-full h-full bg-slate-950/80 dark:bg-slate-950/90 rounded-[14px] flex items-center justify-center relative overflow-hidden">
+                        <!-- Custom SVG Monogram combining RBZ shield and cap -->
+                        <svg class="w-7 h-7 text-sky-400 group-hover:rotate-6 transition-transform duration-300" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 4L5 11L20 18L35 11L20 4Z" fill="url(#grad1)" stroke="#38bdf8" stroke-width="1.5" stroke-linejoin="round"/>
+                            <path d="M10 16.5V26.5C10 26.5 14 31 20 31C26 31 30 26.5 30 26.5V16.5" stroke="url(#grad2)" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M16 20H24M16 24H22" stroke="#f8fafc" stroke-width="1.8" stroke-linecap="round"/>
+                            <defs>
+                                <linearGradient id="grad1" x1="5" y1="4" x2="35" y2="18" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#1034A6"/>
+                                    <stop offset="1" stop-color="#38bdf8"/>
+                                </linearGradient>
+                                <linearGradient id="grad2" x1="10" y1="16.5" x2="30" y2="31" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#38bdf8"/>
+                                    <stop offset="1" stop-color="#fbbf24"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <div class="flex items-center space-x-1">
+                        <span class="text-2xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-egyptian-700 via-blue-900 to-sky-600 dark:from-white dark:via-sky-200 dark:to-iceberg-300">
+                            RBZedu
+                        </span>
+                        <span class="text-xs font-bold text-amber-500 bg-amber-500/10 px-1.5 py-0.5 rounded-md border border-amber-500/20">.com</span>
+                    </div>
+                    <span class="text-[10px] font-bold tracking-widest uppercase text-slate-600 dark:text-slate-400 -mt-1">
+                        IELTS &amp; CEFR Academy
+                    </span>
+                </div>
+            </a>
+
+            <!-- Right Nav Controls -->
+            <div class="flex items-center space-x-2 sm:space-x-4">
+                
+                <!-- 3-State Theme Engine Pill Switcher -->
+                <div class="glass-card rounded-xl p-1 flex items-center text-xs font-bold text-slate-700 dark:text-slate-300">
+                    <button onclick="setTheme('system')" id="theme-btn-system" class="theme-pill px-2.5 py-1.5 rounded-lg flex items-center space-x-1 hover:text-slate-900 dark:hover:text-white" title="Sync with OS System Theme">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <span class="hidden md:inline">System</span>
+                    </button>
+                    <button onclick="setTheme('light')" id="theme-btn-light" class="theme-pill px-2.5 py-1.5 rounded-lg flex items-center space-x-1 hover:text-slate-900 dark:hover:text-white" title="Light Theme">
+                        <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                        <span class="hidden md:inline">Light</span>
+                    </button>
+                    <button onclick="setTheme('dark')" id="theme-btn-dark" class="theme-pill px-2.5 py-1.5 rounded-lg flex items-center space-x-1 hover:text-slate-900 dark:hover:text-white" title="Dark Theme">
+                        <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                        <span class="hidden md:inline">Dark</span>
+                    </button>
+                </div>
+
+                <!-- Teacher Admin Panel Demo Toggle Pill -->
+                <button onclick="openAdminPanel()" class="hidden sm:flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-extrabold bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/30 hover:bg-amber-500/20 transition-all">
+                    <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <span>Admin Demo</span>
+                </button>
+
+                <!-- Auth Action Button Header Container -->
+                <div id="authHeaderContainer">
+                    <button onclick="openAuthModal('signin')" class="btn-glow bg-gradient-to-r from-egyptian-600 to-blue-600 dark:from-egyptian-500 dark:to-sky-500 text-white font-bold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-xl shadow-md flex items-center space-x-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+                        <span>Sign In</span>
+                    </button>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <main class="relative z-10 flex-grow flex flex-col items-center justify-center px-4 sm:px-6 py-10 lg:py-16 text-center">
+        
+        <div class="glass-panel w-full max-w-4xl rounded-3xl p-6 sm:p-12 lg:p-16 relative overflow-hidden">
+            
+            <!-- Top Right Decorative Glow Accent -->
+            <div class="absolute -top-12 -right-12 w-48 h-48 bg-gradient-to-br from-iceberg-300/30 to-egyptian-500/20 dark:from-sky-400/20 rounded-full blur-2xl pointer-events-none"></div>
+
+            <!-- Welcome Badge -->
+            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-card text-xs sm:text-sm font-bold text-egyptian-700 dark:text-sky-300 mb-6 border border-sky-400/30">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                <span>Official Online Student Portal</span>
+            </div>
+
+            <!-- Hero Main Heading -->
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight mb-6">
+                Welcome, <br class="hidden sm:inline" />
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-egyptian-600 via-blue-600 to-sky-500 dark:from-sky-300 dark:via-iceberg-300 dark:to-indigo-300">
+                    you have been very missed!
+                </span>
+            </h1>
+
+            <p class="text-base sm:text-lg lg:text-xl text-slate-700 dark:text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
+                Your personalized platform for IELTS &amp; CEFR Multilevel excellence, homework tracking, real-time mock exams, and online feedback.
+            </p>
+
+            <!-- Action Buttons Row -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md mx-auto">
+                
+                <!-- Telegram Contact Button -->
+                <a href="https://t.me/Rakhimqulov_B" target="_blank" rel="noopener noreferrer" 
+                   class="btn-glow w-full sm:w-auto flex-1 inline-flex items-center justify-center space-x-2.5 bg-gradient-to-r from-sky-500 to-blue-600 dark:from-egyptian-600 dark:to-blue-700 text-white font-bold text-base px-6 py-3.5 rounded-2xl shadow-lg hover:shadow-sky-500/25 transition-all">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.128.832.941z"/>
+                    </svg>
+                    <span>Contact via Telegram</span>
+                </a>
+
+                <!-- About Results Modal Trigger -->
+                <button onclick="openModal('resultsModal')" 
+                        class="btn-glow w-full sm:w-auto flex-1 inline-flex items-center justify-center space-x-2 glass-card hover:bg-white dark:hover:bg-slate-800 text-slate-900 dark:text-slate-100 font-bold text-base px-6 py-3.5 rounded-2xl border border-slate-300 dark:border-slate-700 shadow-sm transition-all">
+                    <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                    </svg>
+                    <span>About Results</span>
+                </button>
+
+            </div>
+
+            <!-- Student Dashboard Card Preview (Appears when student logs in) -->
+            <div id="loggedInDashboard" class="mt-10 hidden text-left">
+                <div class="glass-card rounded-2xl p-6 border-2 border-egyptian-500/30 dark:border-sky-400/30">
+                    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200 dark:border-slate-800">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <h3 class="text-lg font-extrabold text-slate-900 dark:text-white">Active Student Workspace</h3>
+                        </div>
+                        <span id="dashCourseBadge" class="px-3 py-1 rounded-full text-xs font-black bg-egyptian-100 text-egyptian-800 dark:bg-egyptian-800 dark:text-sky-200">
+                            IELTS Academic
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="p-4 rounded-xl glass-panel">
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Target Goal</p>
+                            <p class="text-2xl font-black text-egyptian-600 dark:text-sky-300" id="dashTargetScore">Band 7.5+</p>
+                        </div>
+                        <div class="p-4 rounded-xl glass-panel">
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Online Mocks</p>
+                            <p class="text-2xl font-black text-slate-800 dark:text-white">2 Active Exams</p>
+                        </div>
+                        <div class="p-4 rounded-xl glass-panel">
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider">Homework Status</p>
+                            <p class="text-2xl font-black text-amber-500">1 Writing Review</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Features Showcase Grid -->
+        <div class="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 w-full max-w-4xl text-left">
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-sky-400 flex items-center justify-center mb-3 font-bold">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <h4 class="font-extrabold text-slate-900 dark:text-white text-base mb-1">Timed Mock Exams</h4>
+                <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">Realistic IELTS Reading &amp; Listening practice tests with exact exam timers.</p>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-3 font-bold">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                </div>
+                <h4 class="font-extrabold text-slate-900 dark:text-white text-base mb-1">Direct Writing Review</h4>
+                <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">Submit Task 1 &amp; Task 2 essays for detailed teacher feedback and band scoring.</p>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-3 font-bold">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                </div>
+                <h4 class="font-extrabold text-slate-900 dark:text-white text-base mb-1">Real-time Analytics</h4>
+                <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">Track accuracy percentages, strength areas, and performance trends over time.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="resultsModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-all duration-300 bg-slate-950/60 backdrop-blur-md">
+        
+        <div class="glass-panel w-full max-w-xl rounded-3xl p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 shadow-2xl max-h-[90vh] overflow-y-auto" id="resultsModalContent">
+            
+            <!-- Close Modal Button -->
+            <button onclick="closeModal('resultsModal')" class="absolute top-5 right-5 p-2 rounded-full hover:bg-slate-200/60 dark:hover:bg-slate-800/60 text-slate-500 dark:text-slate-400 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+
+            <!-- Modal Header -->
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-amber-500/15 text-amber-500 flex items-center justify-center mx-auto mb-3">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Verified Student Results</h2>
+                <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Official examination scores &amp; instructor certification</p>
+            </div>
+
+            <!-- Total Results Counter Badge -->
+            <div class="glass-card rounded-2xl p-5 mb-6 text-center border-2 border-sky-400/30">
+                <p class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">Total Verified Student Certificates</p>
+                <div class="text-4xl font-black bg-clip-text text-transparent bg-gradient-to-r from-egyptian-600 via-blue-600 to-sky-400 dark:from-sky-300 dark:to-indigo-300" id="totalResultsCount">
+                    0
+                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">New student onboarding in progress. Results will be published here dynamically.</p>
+            </div>
+
+            <!-- Dynamic Published Student Results Container -->
+            <div id="dynamicStudentResultsList" class="space-y-4 mb-6 hidden">
+                <!-- Dynamically populated by Admin Panel -->
+            </div>
+
+            <!-- Founder & Master Instructor Card (Bekzod Rakhimqulov) -->
+            <div class="glass-card rounded-2xl p-5 mb-6 border border-slate-300/80 dark:border-slate-700/80">
+                <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-200 dark:border-slate-800">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs font-black uppercase tracking-widest text-egyptian-600 dark:text-sky-400">Founder &amp; Instructor</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-700 dark:text-amber-300">Verified</span>
+                        </div>
+                        <h3 class="text-xl font-black text-slate-900 dark:text-white mt-0.5">Bekzod Rakhimqulov</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">IELTS Official Result — Third Attempt</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="inline-block px-3.5 py-1.5 rounded-2xl bg-gradient-to-r from-egyptian-600 to-blue-700 text-white font-black text-2xl shadow-lg">
+                            7.5
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Sub-scores Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                    <div class="glass-panel p-3 rounded-xl text-center">
+                        <span class="block text-[11px] font-extrabold text-slate-500 dark:text-slate-400 uppercase">Reading</span>
+                        <span class="text-lg font-black text-slate-900 dark:text-white">8.5</span>
+                    </div>
+                    <div class="glass-panel p-3 rounded-xl text-center">
+                        <span class="block text-[11px] font-extrabold text-slate-500 dark:text-slate-400 uppercase">Listening</span>
+                        <span class="text-lg font-black text-slate-900 dark:text-white">7.5</span>
+                    </div>
+                    <div class="glass-panel p-3 rounded-xl text-center">
+                        <span class="block text-[11px] font-extrabold text-slate-500 dark:text-slate-400 uppercase">Writing</span>
+                        <span class="text-lg font-black text-slate-900 dark:text-white">6.5</span>
+                    </div>
+                    <div class="glass-panel p-3 rounded-xl text-center">
+                        <span class="block text-[11px] font-extrabold text-slate-500 dark:text-slate-400 uppercase">Speaking</span>
+                        <span class="text-lg font-black text-slate-900 dark:text-white">6.5</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Motivational Callout -->
+            <div class="p-4 rounded-2xl bg-gradient-to-r from-iceberg-100 via-blue-500/10 to-indigo-500/20 dark:from-egyptian-900/60 dark:to-blue-900/40 text-center border border-blue-400/30">
+                <p class="font-extrabold text-slate-900 dark:text-slate-100 text-sm sm:text-base">
+                    That's not the end — we are waiting for you!
+                </p>
+                <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">
+                    Your top result will be showcased right here next.
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-all duration-300 bg-slate-950/60 backdrop-blur-md">
+        
+        <div class="glass-panel w-full max-w-lg rounded-3xl p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 shadow-2xl max-h-[92vh] overflow-y-auto" id="authModalContent">
+            
+            <!-- Close Modal Button -->
+            <button onclick="closeModal('authModal')" class="absolute top-5 right-5 p-2 rounded-full hover:bg-slate-200/60 dark:hover:bg-slate-800/60 text-slate-500 dark:text-slate-400 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+
+            <!-- Authentication Mode Switcher Pills -->
+            <div class="flex items-center justify-center space-x-1.5 bg-slate-200/70 dark:bg-slate-900/80 p-1.5 rounded-2xl mb-6 border border-slate-300/50 dark:border-slate-800">
+                <button onclick="switchAuthView('signin')" id="auth-tab-signin" class="flex-1 py-2.5 rounded-xl font-extrabold text-xs sm:text-sm transition-all text-slate-900 dark:text-white bg-white dark:bg-egyptian-600 shadow-sm">
+                    Sign In
+                </button>
+                <button onclick="switchAuthView('register')" id="auth-tab-register" class="flex-1 py-2.5 rounded-xl font-extrabold text-xs sm:text-sm transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+                    Create Account
+                </button>
+            </div>
+
+            <!-- Global Auth Error Box -->
+            <div id="authErrorBox" class="hidden mb-4 p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 text-xs font-bold flex items-start space-x-2">
+                <svg class="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span id="authErrorMsg">Please check your inputs.</span>
+            </div>
+
+            <!-- VIEW 1: SIGN IN FORM -->
+            <div id="viewSignIn" class="space-y-4">
+                <form onsubmit="handleSignInSubmit(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-extrabold text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">Email or Username</label>
+                        <input type="text" id="signInIdentifier" required placeholder="student@example.com or @telegram_user" class="w-full px-4 py-3 rounded-xl glass-input text-sm font-medium">
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between mb-1.5">
+                            <label class="block text-xs font-extrabold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Password / Security PIN</label>
+                            <button type="button" onclick="switchAuthView('forgot')" class="text-xs font-bold text-egyptian-600 dark:text-sky-400 hover:underline">
+                                Forgot PIN?
+                            </button>
+                        </div>
+                        <div class="relative">
+                            <input type="password" id="signInPassword" required placeholder="••••••••" class="w-full px-4 py-3 pr-10 rounded-xl glass-input text-sm font-medium">
+                            <button type="button" onclick="togglePasswordVisibility('signInPassword', 'signInEyeIcon')" class="absolute right-3 top-3.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                                <svg class="w-5 h-5" id="signInEyeIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-glow w-full py-3.5 rounded-xl bg-gradient-to-r from-egyptian-600 to-blue-600 dark:from-egyptian-500 dark:to-sky-500 text-white font-extrabold text-sm shadow-md mt-2">
+                        Sign In to RBZedu
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="relative my-5">
+                    <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-300 dark:border-slate-800"></div></div>
+                    <div class="relative flex justify-center text-xs uppercase"><span class="bg-white dark:bg-slate-900 px-3 text-slate-500 font-extrabold tracking-wider">Or Quick Connect</span></div>
+                </div>
+
+                <!-- Prominent Telegram Sign-In Button -->
+                <button onclick="simulateTelegramAuth()" class="btn-glow w-full py-3 rounded-xl bg-[#229ED9] hover:bg-[#1d8dc3] text-white font-extrabold text-sm shadow-md flex items-center justify-center space-x-2.5 transition-all">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.128.832.941z"/>
+                    </svg>
+                    <span>Sign in with Telegram</span>
+                </button>
+            </div>
+
+            <!-- VIEW 2: REGISTER FORM -->
+            <div id="viewRegister" class="space-y-4 hidden">
+                <form onsubmit="handleRegisterSubmit(event)" class="space-y-3.5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-extrabold text-slate-700 dark:text-slate-300 mb-1 uppercase tracking-wider">Full Name</label>
+                            <input type="text" id="regFullName" required placeholder="John Doe" class="w-full px-3.5 py-2.5 rounded-xl glass-input text-sm font-medium">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-extrabold text-slate-700 dark:text-slate-300 mb-1 uppercase tracking-wider">Age</label>
+                            <input type="number" id="regAge" min="10" max="95" required placeholder="18" class="w-full px-3.5 py-2.5 rounded-xl glass-input text-sm font-medium">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-extrabold text-slate-700 dark:text-slate-300 mb-1 uppercase tracking-wider">Study Course</label>
+                            <select id="regCourse" required class="w-full px-3.5 py-2.5 rounded-xl glass-input text-sm font-medium">
+                                <option value="IELTS Academic" class="text-slate-900">IELTS Academic</option>
+                                <option value="CEFR Multilevel" class="text-slate-900">CEFR Multilevel</option>
+                                <option value="General English" class="text-slate-900">General English</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-extrabold text-slate-700 dark:text-slate-300 mb-1 uppercase tracking-wider">Target Score</label>
+                            <select id="regTargetScore" required class="w-full px-3.5 py-2.5 rounded-xl glass-input text-sm font-medium">
+                                <option value="Band 7.0" class="text-slate-900">Band 7.0</option>
+                                <option value="Band 7.5+" class="text-slate-900">Band 7.5+</option>
+                                <option value="Band 8.0+" class="text-slate-900">Band 8.0+</option>
+                                <option value="CEFR B2" class="text-slate-900">CEFR B2</option>
+                                <option value="CEFR C1" class="text-slate-900">CEFR C1</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-extrabold text-slate-700 dark:text-slate-300 mb-1 uppercase tracking-wider">Email Address</label>
+                        <input type="email" id="regEmail" required placeholder="student@example.com" class="w-full px-3.5 py-2.5 rounded-xl glass-input text-sm font-medium">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-extrabold text-slate-700 dark:text-slate-300 mb-1 uppercase tracking-wider">Password</label>
+                        <div class="relative">
+                            <input type="password" id="regPassword" onkeyup="checkPasswordStrength()" required placeholder="••••••••" class="w-full px-3.5 py-2.5 pr-10 rounded-xl glass-input text-sm font-medium">
+                            <button type="button" onclick="togglePasswordVisibility('regPassword', 'regEyeIcon')" class="absolute right-3 top-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                                <svg class="w-4 h-4" id="regEyeIcon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                            </button>
+                        </div>
+                        <!-- Password Strength Indicator Bar -->
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+                            <div id="passwordStrengthBar" class="strength-bar bg-rose-500 w-0"></div>
+                        </div>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1" id="strengthText">Must contain min 8 chars &amp; 1 letter.</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-extrabold text-slate-700 dark:text-slate-300 mb-1 uppercase tracking-wider">Confirm Password</label>
+                        <input type="password" id="regConfirmPassword" required placeholder="••••••••" class="w-full px-3.5 py-2.5 rounded-xl glass-input text-sm font-medium">
+                    </div>
+
+                    <button type="submit" class="btn-glow w-full py-3.5 rounded-xl bg-gradient-to-r from-egyptian-600 to-blue-600 dark:from-egyptian-500 dark:to-sky-500 text-white font-extrabold text-sm shadow-md mt-2">
+                        Create Student Account
+                    </button>
+                </form>
+            </div>
+
+            <!-- VIEW 3: FORGOT PIN FORM -->
+            <div id="viewForgot" class="space-y-4 hidden">
+                <div class="text-left mb-2">
+                    <h3 class="text-lg font-black text-slate-900 dark:text-white">Reset Security PIN</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">Enter your registered Email address or Telegram handle (@username) to receive a secure password reset link.</p>
+                </div>
+
+                <form onsubmit="handleForgotSubmit(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-extrabold text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">Email or Telegram Handle</label>
+                        <input type="text" id="forgotIdentifier" required placeholder="student@example.com or @username" class="w-full px-4 py-3 rounded-xl glass-input text-sm font-medium">
+                    </div>
+
+                    <button type="submit" class="btn-glow w-full py-3.5 rounded-xl bg-gradient-to-r from-egyptian-600 to-blue-600 dark:from-egyptian-500 dark:to-sky-500 text-white font-extrabold text-sm shadow-md">
+                        Send Reset Code / Link
+                    </button>
+
+                    <button type="button" onclick="switchAuthView('signin')" class="w-full text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white text-center pt-2">
+                        &larr; Back to Sign In
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="adminModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-all duration-300 bg-slate-950/70 backdrop-blur-md">
+        
+        <div class="glass-panel w-full max-w-2xl rounded-3xl p-6 sm:p-8 relative transform scale-95 transition-transform duration-300 shadow-2xl max-h-[92vh] overflow-y-auto" id="adminModalContent">
+            
+            <button onclick="closeModal('adminModal')" class="absolute top-5 right-5 p-2 rounded-full hover:bg-slate-200/60 dark:hover:bg-slate-800/60 text-slate-500 dark:text-slate-400">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+
+            <!-- Admin Header -->
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-500 flex items-center justify-center font-black">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                </div>
+                <div>
+                    <h3 class="text-xl font-black text-slate-900 dark:text-white">Teacher Admin Panel</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Manage student onboarding, mock tests, and published certificates.</p>
+                </div>
+            </div>
+
+            <!-- Admin Tabs -->
+            <div class="grid grid-cols-2 gap-3 mb-6">
+                <div class="p-4 rounded-xl glass-card text-left">
+                    <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Registered Students</span>
+                    <p class="text-2xl font-black text-slate-900 dark:text-white" id="adminStudentCount">1 Active</p>
+                </div>
+                <div class="p-4 rounded-xl glass-card text-left">
+                    <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Published Results</span>
+                    <p class="text-2xl font-black text-amber-500" id="adminPublishedCount">0 Published</p>
+                </div>
+            </div>
+
+            <!-- Add New Verified Result Form -->
+            <div class="glass-card p-5 rounded-2xl mb-6">
+                <h4 class="text-sm font-extrabold text-slate-900 dark:text-white mb-3 flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>Publish New Student Certificate Result</span>
+                </h4>
+                
+                <form onsubmit="handleAdminAddResult(event)" class="space-y-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <input type="text" id="adminStudentName" required placeholder="Student Name (e.g. Malika A.)" class="px-3.5 py-2 rounded-xl glass-input text-xs font-medium">
+                        <input type="text" id="adminExamType" required placeholder="Exam (e.g. IELTS Academic)" class="px-3.5 py-2 rounded-xl glass-input text-xs font-medium">
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <input type="text" id="adminScoreOverall" required placeholder="Overall (e.g. 7.5)" class="px-3 py-2 rounded-xl glass-input text-xs font-medium">
+                        <input type="text" id="adminScoreR" required placeholder="R: 8.0" class="px-3 py-2 rounded-xl glass-input text-xs font-medium">
+                        <input type="text" id="adminScoreL" required placeholder="L: 7.5" class="px-3 py-2 rounded-xl glass-input text-xs font-medium">
+                        <input type="text" id="adminScoreW" required placeholder="W: 6.5" class="px-3 py-2 rounded-xl glass-input text-xs font-medium">
+                    </div>
+                    <button type="submit" class="btn-glow w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-xs shadow">
+                        Publish Certificate to Results Modal
+                    </button>
+                </form>
+            </div>
+
+            <!-- Registered Students List -->
+            <div>
+                <h4 class="text-xs font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Recent Registered Students</h4>
+                <div class="space-y-2" id="adminStudentsList">
+                    <div class="p-3 rounded-xl glass-card flex items-center justify-between text-xs">
+                        <div>
+                            <span class="font-bold text-slate-900 dark:text-white">Sample Student</span>
+                            <span class="text-slate-500 dark:text-slate-400 ml-2">(IELTS Academic — Band 7.5+)</span>
+                        </div>
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold">Active</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="glass-panel rounded-2xl px-5 py-4 shadow-2xl flex items-center space-x-3 border-l-4 border-emerald-500">
+            <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center flex-shrink-0 font-bold">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <div>
+                <h4 class="text-sm font-extrabold text-slate-900 dark:text-white" id="toastTitle">Success</h4>
+                <p class="text-xs text-slate-600 dark:text-slate-300 font-medium" id="toastMessage">Action executed successfully.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const html = document.documentElement;
+
+        /* Theme Engine (3-State Selector: System, Light, Dark) */
+        function setTheme(mode) {
+            document.querySelectorAll('.theme-pill').forEach(btn => btn.classList.remove('active'));
+
+            if (mode === 'light') {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                document.getElementById('theme-btn-light').classList.add('active');
+            } else if (mode === 'dark') {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                document.getElementById('theme-btn-dark').classList.add('active');
+            } else {
+                localStorage.removeItem('theme');
+                document.getElementById('theme-btn-system').classList.add('active');
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    html.classList.add('dark');
+                } else {
+                    html.classList.remove('dark');
+                }
+            }
+        }
+
+        /* Initialize Theme on Page Load */
+        (function initTheme() {
+            const savedTheme = localStorage.theme;
+            if (savedTheme === 'dark') {
+                setTheme('dark');
+            } else if (savedTheme === 'light') {
+                setTheme('light');
+            } else {
+                setTheme('system');
+            }
+        })();
+
+        /* Sync with OS preference changes in System Mode */
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.theme) {
+                if (e.matches) html.classList.add('dark');
+                else html.classList.remove('dark');
+            }
+        });
+
+        /* Modal Helper Functions */
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            const content = document.getElementById(id + 'Content') || modal.firstElementChild;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            const content = document.getElementById(id + 'Content') || modal.firstElementChild;
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        /* Close modals on ESC key or outer backdrop click */
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                ['resultsModal', 'authModal', 'adminModal'].forEach(closeModal);
+            }
+        });
+
+        ['resultsModal', 'authModal', 'adminModal'].forEach(id => {
+            document.getElementById(id).addEventListener('click', (e) => {
+                if (e.target.id === id) closeModal(id);
+            });
+        });
+
+        /* Password Visibility Toggle */
+        function togglePasswordVisibility(inputId, eyeIconId) {
+            const input = document.getElementById(inputId);
+            const eyeIcon = document.getElementById(eyeIconId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                eyeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858-5.908a10.025 10.025 0 0110.122 4.937C18.726 12.057 14.936 15 10.458 15a9.97 9.97 0 01-3.03-.463m-2.122-2.122L2 2l20 20"/>`;
+            } else {
+                input.type = 'password';
+                eyeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>`;
+            }
+        }
+
+        /* Auth View Switcher (SignIn, Register, Forgot PIN) */
+        function switchAuthView(view) {
+            const vSignIn = document.getElementById('viewSignIn');
+            const vRegister = document.getElementById('viewRegister');
+            const vForgot = document.getElementById('viewForgot');
+            const tabSignIn = document.getElementById('auth-tab-signin');
+            const tabRegister = document.getElementById('auth-tab-register');
+            const errorBox = document.getElementById('authErrorBox');
+
+            errorBox.classList.add('hidden');
+
+            vSignIn.classList.add('hidden');
+            vRegister.classList.add('hidden');
+            vForgot.classList.add('hidden');
+
+            tabSignIn.className = "flex-1 py-2.5 rounded-xl font-extrabold text-xs sm:text-sm transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
+            tabRegister.className = "flex-1 py-2.5 rounded-xl font-extrabold text-xs sm:text-sm transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
+
+            if (view === 'signin') {
+                vSignIn.classList.remove('hidden');
+                tabSignIn.className = "flex-1 py-2.5 rounded-xl font-extrabold text-xs sm:text-sm transition-all text-slate-900 dark:text-white bg-white dark:bg-egyptian-600 shadow-sm";
+            } else if (view === 'register') {
+                vRegister.classList.remove('hidden');
+                tabRegister.className = "flex-1 py-2.5 rounded-xl font-extrabold text-xs sm:text-sm transition-all text-slate-900 dark:text-white bg-white dark:bg-egyptian-600 shadow-sm";
+            } else if (view === 'forgot') {
+                vForgot.classList.remove('hidden');
+            }
+        }
+
+        function openAuthModal(view) {
+            switchAuthView(view);
+            openModal('authModal');
+        }
+
+        function showAuthError(msg) {
+            const errorBox = document.getElementById('authErrorBox');
+            const errorMsg = document.getElementById('authErrorMsg');
+            errorMsg.textContent = msg;
+            errorBox.classList.remove('hidden');
+        }
+
+        /* Password Strength Checker */
+        function checkPasswordStrength() {
+            const val = document.getElementById('regPassword').value;
+            const bar = document.getElementById('passwordStrengthBar');
+            const text = document.getElementById('strengthText');
+
+            let score = 0;
+            if (val.length >= 8) score++;
+            if (/[a-zA-Z]/.test(val)) score++;
+            if (/[0-9]/.test(val)) score++;
+            if (/[^a-zA-Z0-9]/.test(val)) score++;
+
+            if (val.length === 0) {
+                bar.style.width = '0%';
+                text.textContent = 'Must contain min 8 chars & 1 letter.';
+            } else if (score <= 1) {
+                bar.style.width = '30%';
+                bar.className = 'strength-bar bg-rose-500';
+                text.textContent = 'Weak password';
+            } else if (score <= 3) {
+                bar.style.width = '65%';
+                bar.className = 'strength-bar bg-amber-500';
+                text.textContent = 'Medium password';
+            } else {
+                bar.style.width = '100%';
+                bar.className = 'strength-bar bg-emerald-500';
+                text.textContent = 'Strong password!';
+            }
+        }
+
+        /* State Stores */
+        let currentUser = JSON.parse(localStorage.getItem('rbz_user') || 'null');
+        let registeredStudentsList = JSON.parse(localStorage.getItem('rbz_students') || '[]');
+        let publishedResults = JSON.parse(localStorage.getItem('rbz_results') || '[]');
+
+        function handleSignInSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('signInIdentifier').value.trim();
+            const pwd = document.getElementById('signInPassword').value;
+
+            if (pwd.length < 1) {
+                showAuthError('Please enter your password or security PIN.');
+                return;
+            }
+
+            const user = {
+                name: id.includes('@') ? id.split('@')[0] : id,
+                email: id.includes('@') ? id : `${id}@rbzedu.com`,
+                course: 'IELTS Academic',
+                targetScore: 'Band 7.5+'
+            };
+
+            loginUser(user);
+            showToast('Welcome Back!', `Signed in successfully as ${user.name}`);
+        }
+
+        function handleRegisterSubmit(e) {
+            e.preventDefault();
+            const fullName = document.getElementById('regFullName').value.trim();
+            const age = document.getElementById('regAge').value;
+            const course = document.getElementById('regCourse').value;
+            const targetScore = document.getElementById('regTargetScore').value;
+            const email = document.getElementById('regEmail').value.trim();
+            const pwd = document.getElementById('regPassword').value;
+            const confirmPwd = document.getElementById('regConfirmPassword').value;
+
+            const hasMinLength = pwd.length >= 8;
+            const hasLetter = /[a-zA-Z]/.test(pwd);
+
+            if (!hasMinLength || !hasLetter) {
+                showAuthError('Password must be at least 8 characters and contain at least 1 letter.');
+                return;
+            }
+
+            if (pwd !== confirmPwd) {
+                showAuthError('Password confirmation does not match.');
+                return;
+            }
+
+            const newUser = {
+                name: fullName,
+                age: age,
+                course: course,
+                targetScore: targetScore,
+                email: email
+            };
+
+            registeredStudentsList.unshift(newUser);
+            localStorage.setItem('rbz_students', JSON.stringify(registeredStudentsList));
+
+            loginUser(newUser);
+            showToast('Account Created!', `Welcome to RBZedu, ${fullName}`);
+        }
+
+        function handleForgotSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('forgotIdentifier').value.trim();
+            closeModal('authModal');
+            showToast('Reset Link Sent', `A PIN reset link has been dispatched to ${id}`);
+        }
+
+        function simulateTelegramAuth() {
+            const tgUser = {
+                name: 'Telegram Student',
+                email: '@telegram_user',
+                course: 'CEFR Multilevel',
+                targetScore: 'CEFR C1'
+            };
+            loginUser(tgUser);
+            showToast('Telegram Connected', 'Authenticated via Telegram OAuth simulation.');
+        }
+
+        function loginUser(user) {
+            currentUser = user;
+            localStorage.setItem('rbz_user', JSON.stringify(user));
+            closeModal('authModal');
+            updateUIState();
+        }
+
+        function logoutUser() {
+            currentUser = null;
+            localStorage.removeItem('rbz_user');
+            updateUIState();
+            showToast('Signed Out', 'You have been safely logged out.');
+        }
+
+        function updateUIState() {
+            const authHeaderContainer = document.getElementById('authHeaderContainer');
+            const loggedInDashboard = document.getElementById('loggedInDashboard');
+
+            if (currentUser) {
+                authHeaderContainer.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <div class="glass-card px-3 py-1.5 rounded-xl flex items-center space-x-2 text-xs font-black text-slate-800 dark:text-white">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            <span>${currentUser.name}</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] bg-egyptian-500/20 text-egyptian-700 dark:text-sky-300">${currentUser.targetScore}</span>
+                        </div>
+                        <button onclick="logoutUser()" class="p-2 rounded-xl glass-card hover:bg-rose-500/20 text-rose-500 transition-colors" title="Sign Out">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+                        </button>
+                    </div>
+                `;
+
+                loggedInDashboard.classList.remove('hidden');
+                document.getElementById('dashTargetScore').textContent = currentUser.targetScore;
+                document.getElementById('dashCourseBadge').textContent = currentUser.course;
+            } else {
+                authHeaderContainer.innerHTML = `
+                    <button onclick="openAuthModal('signin')" class="btn-glow bg-gradient-to-r from-egyptian-600 to-blue-600 dark:from-egyptian-500 dark:to-sky-500 text-white font-bold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-xl shadow-md flex items-center space-x-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+                        <span>Sign In</span>
+                    </button>
+                `;
+                loggedInDashboard.classList.add('hidden');
+            }
+
+            renderResultsModalList();
+        }
+
+        /* Teacher Admin Panel Logic */
+        function openAdminPanel() {
+            document.getElementById('adminStudentCount').textContent = `${registeredStudentsList.length + 1} Registered`;
+            document.getElementById('adminPublishedCount').textContent = `${publishedResults.length} Published`;
+
+            const list = document.getElementById('adminStudentsList');
+            if (registeredStudentsList.length === 0) {
+                list.innerHTML = `
+                    <div class="p-3 rounded-xl glass-card flex items-center justify-between text-xs">
+                        <div>
+                            <span class="font-bold text-slate-900 dark:text-white">Sample Student</span>
+                            <span class="text-slate-500 dark:text-slate-400 ml-2">(IELTS Academic — Band 7.5+)</span>
+                        </div>
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold">Active</span>
+                    </div>
+                `;
+            } else {
+                list.innerHTML = registeredStudentsList.map(st => `
+                    <div class="p-3 rounded-xl glass-card flex items-center justify-between text-xs">
+                        <div>
+                            <span class="font-bold text-slate-900 dark:text-white">${st.name}</span>
+                            <span class="text-slate-500 dark:text-slate-400 ml-2">(${st.course} — ${st.targetScore})</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400">${st.email}</span>
+                    </div>
+                `).join('');
+            }
+
+            openModal('adminModal');
+        }
+
+        function handleAdminAddResult(e) {
+            e.preventDefault();
+            const name = document.getElementById('adminStudentName').value.trim();
+            const exam = document.getElementById('adminExamType').value.trim();
+            const overall = document.getElementById('adminScoreOverall').value.trim();
+            const scoreR = document.getElementById('adminScoreR').value.trim();
+            const scoreL = document.getElementById('adminScoreL').value.trim();
+            const scoreW = document.getElementById('adminScoreW').value.trim();
+
+            const newResult = { name, exam, overall, scoreR, scoreL, scoreW, date: 'October 2026' };
+            publishedResults.unshift(newResult);
+            localStorage.setItem('rbz_results', JSON.stringify(publishedResults));
+
+            closeModal('adminModal');
+            renderResultsModalList();
+            showToast('Certificate Published!', `${name}'s ${overall} result is now live on the Results modal.`);
+        }
+
+        function renderResultsModalList() {
+            const countElem = document.getElementById('totalResultsCount');
+            const listElem = document.getElementById('dynamicStudentResultsList');
+
+            countElem.textContent = publishedResults.length;
+
+            if (publishedResults.length > 0) {
+                listElem.classList.remove('hidden');
+                listElem.innerHTML = publishedResults.map(res => `
+                    <div class="glass-card rounded-2xl p-4 border border-emerald-500/30">
+                        <div class="flex items-center justify-between mb-2">
+                            <div>
+                                <h4 class="font-black text-slate-900 dark:text-white text-base">${res.name}</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">${res.exam} — Official Certification</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black text-lg">
+                                ${res.overall}
+                            </span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 mt-2 text-center text-xs">
+                            <div class="p-1.5 rounded-lg glass-panel font-bold">R: ${res.scoreR}</div>
+                            <div class="p-1.5 rounded-lg glass-panel font-bold">L: ${res.scoreL}</div>
+                            <div class="p-1.5 rounded-lg glass-panel font-bold">W: ${res.scoreW}</div>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                listElem.classList.add('hidden');
+            }
+        }
+
+        function showToast(title, message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastTitle').textContent = title;
+            document.getElementById('toastMessage').textContent = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Run UI Initialization on Load
+        updateUIState();
+    </script>
+</body>
+</html>
